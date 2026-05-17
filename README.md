@@ -1,36 +1,114 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Riiive 🩺
+
+Get brutally honest feedback on your portfolio. AI-powered analysis that actually helps.
+
+## Features
+
+- **Instant Analysis** - Get results in seconds
+- **Multi-dimensional Scoring** - Performance, accessibility, design, content, and responsiveness
+- **AI Roasts** - Funny but constructive criticism
+- **Recruiter Perspective** - See what hiring managers think
+- **Actionable Feedback** - Specific improvements you can make today
+- **Template Recommendations** - Suggestions based on your needs
+- **Dark Mode** - Beautiful in light or dark
+
+## Tech Stack
+
+- **Next.js 16** - App Router with Server Actions
+- **TypeScript** - Type-safe development
+- **Tailwind CSS 4** - Modern styling
+- **shadcn/ui** - Beautiful components
+- **Framer Motion** - Smooth animations
+- **Supabase** - Database (optional)
+- **OpenAI** - AI feedback (optional)
 
 ## Getting Started
 
-First, run the development server:
+1. **Install dependencies**
+
+```bash
+npm install
+```
+
+2. **Set up environment variables**
+
+Copy `env.example` to `.env.local` and fill in your values:
+
+```bash
+cp env.example .env.local
+```
+
+Required for AI features (optional):
+- `OPENAI_API_KEY` - For AI-powered feedback
+
+Optional:
+- `NEXT_PUBLIC_SUPABASE_URL` - For storing analysis results
+- `NEXT_PUBLIC_SUPABASE_ANON_KEY` - Supabase anonymous key
+
+3. **Run the development server**
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) to see the app.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## How It Works
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+1. **User Input** - Paste a portfolio URL or upload a screenshot
+2. **Hybrid Analysis** - Combines heuristic scoring with optional AI enhancement
+3. **Scoring System** - Analyzes 5 key areas:
+   - Performance (page size, scripts, optimization)
+   - Accessibility (alt text, semantic HTML, ARIA)
+   - Design (typography, spacing, visual hierarchy)
+   - Content (copy quality, contact info, SEO)
+   - Responsiveness (mobile-friendly, viewport)
+4. **AI Enhancement** - Optional OpenAI integration for witty feedback
+5. **Results** - Comprehensive report with actionable improvements
 
-## Learn More
+## Architecture
 
-To learn more about Next.js, take a look at the following resources:
+```
+app/
+├── actions/          # Server Actions
+│   └── analyze.ts    # Portfolio analysis logic
+├── page.tsx          # Main landing page
+└── layout.tsx        # Root layout with theme
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+components/
+├── ui/               # shadcn/ui components
+├── portfolio-input.tsx
+├── analysis-results.tsx
+├── theme-provider.tsx
+└── theme-toggle.tsx
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+lib/
+├── analyzer.ts       # Heuristic analysis engine
+├── ai-feedback.ts    # AI feedback generator
+├── supabase.ts       # Database client
+└── utils.ts          # Utilities
 
-## Deploy on Vercel
+types/
+└── analysis.ts       # TypeScript types
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Deployment
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Deploy to Vercel with one click:
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/yourusername/portfolio-doctor)
+
+Or deploy manually:
+
+```bash
+npm run build
+npm start
+```
+
+## Contributing
+
+Contributions welcome! Please open an issue or PR.
+
+## License
+
+MIT

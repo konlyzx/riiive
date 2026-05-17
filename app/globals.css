@@ -1,26 +1,89 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: 0 0% 100%;
+  --foreground: 0 0% 10%;
+  --muted: 0 0% 96%;
+  --muted-foreground: 0 0% 45%;
+  --border: 0 0% 90%;
+  --ring: 0 0% 20%;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+.dark {
+  --background: 0 0% 0%;
+  --foreground: 0 0% 93.7%;
+  --muted: 0 0% 12%;
+  --muted-foreground: 0 0% 60%;
+  --border: 0 0% 18%;
+  --ring: 0 0% 80%;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: hsl(var(--background));
+  color: hsl(var(--foreground));
+  font-family: 'Anton', sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: normal;
+  font-feature-settings: "rlig" 1, "calt" 1;
+}
+
+@view-transition {
+  navigation: auto;
+}
+
+html[data-theme-anim="1"]::view-transition-old(root),
+html[data-theme-anim="1"]::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+html[data-theme-anim="1"]::view-transition-new(root) {
+  clip-path: circle(
+    var(--theme-r) at var(--theme-cx) var(--theme-cy)
+  );
+}
+
+html[data-theme-anim="1"]::view-transition-old(root) {
+  clip-path: circle(
+    var(--theme-r) at var(--theme-cx) var(--theme-cy)
+  );
+}
+
+.site-frame {
+  position: fixed;
+  background-color: hsl(var(--foreground));
+  z-index: 9999;
+  pointer-events: none;
+}
+
+.site-frame--top {
+  top: 0;
+  left: 6px;
+  right: 6px;
+  height: 4px;
+  border-radius: 0 0 4px 4px;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+.focus\:not-sr-only:focus {
+  position: static;
+  width: auto;
+  height: auto;
+  padding: inherit;
+  margin: inherit;
+  overflow: visible;
+  clip: auto;
+  white-space: normal;
 }
