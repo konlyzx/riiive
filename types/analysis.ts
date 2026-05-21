@@ -5,6 +5,7 @@ export interface AnalysisScore {
   design: number
   content: number
   responsiveness: number
+  seo: number
 }
 
 export interface AnalysisIssue {
@@ -12,6 +13,7 @@ export interface AnalysisIssue {
   title: string
   description: string
   impact: 'high' | 'medium' | 'low'
+  fix?: string
 }
 
 export interface AIFeedback {

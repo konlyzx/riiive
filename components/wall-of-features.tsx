@@ -1,64 +1,64 @@
 import React from "react";
 import { 
-  GitBranch, Search, CheckSquare, Network, Book, FileText, Calendar, CheckCircle, Folder, Briefcase,
-  Bell, PieChart, Flag, CalendarClock, Target, Sparkles,
-  Code, MapPin, ClipboardList, Zap, Edit, Clock,
+  Eye, Search, Star, Layout, FileText, Sparkles, Globe, CheckCircle, Folder, Layers,
+  Bell, BarChart, Target, TrendingUp, Award, Zap,
+  Code, MapPin, ClipboardList, Lightbulb, Edit, Clock,
   MessageSquare, ArrowUp, Calculator, Video, LayoutGrid, Key,
-  Mail, BarChart2, Timer, Columns, Puzzle, UserPlus,
-  Tag, PhoneCall, ListChecks, CalendarDays, Table, Monitor, AlignLeft, Route, Inbox, Users,
-  Hash, Kanban
+  Mail, PieChart, Timer, Columns, Puzzle, UserPlus,
+  Tag, Phone, ListChecks, Calendar, Table, Monitor, AlignLeft, Route, Inbox, Users,
+  Hash, Briefcase
 } from 'lucide-react';
 
 const smallFeatures = [
-  { name: "Dependencies", icon: GitBranch },
-  { name: "Connected Search", icon: Search },
-  { name: "Tasks", icon: CheckSquare },
-  { name: "Mind Maps", icon: Network },
-  { name: "Wikis", icon: Book },
-  { name: "AI Notetaker", icon: FileText },
-  { name: "Calendar", icon: Calendar },
-  { name: "Proofing", icon: CheckCircle },
+  { name: "Design Review", icon: Eye },
+  { name: "SEO Analysis", icon: Search },
+  { name: "Case Studies", icon: Star },
+  { name: "Layout Testing", icon: Layout },
+  { name: "Documentation", icon: FileText },
+  { name: "AI Insights", icon: Sparkles },
+  { name: "Global Reach", icon: Globe },
+  { name: "Quality Check", icon: CheckCircle },
   { name: "Portfolios", icon: Folder },
-  { name: "Templates", icon: Briefcase },
+  { name: "Templates", icon: Layers },
 
-  { name: "Reminders", icon: Bell },
-  { name: "Reporting", icon: PieChart },
-  { name: "Goals", icon: Flag },
-  { name: "Sprints", icon: CalendarClock },
-  { name: "Custom Status", icon: Target },
-  { name: "AI Writer", icon: Sparkles },
+  { name: "Notifications", icon: Bell },
+  { name: "Analytics", icon: BarChart },
+  { name: "Goal Tracking", icon: Target },
+  { name: "Performance", icon: TrendingUp },
+  { name: "Achievements", icon: Award },
+  { name: "AI Assistant", icon: Zap },
 
-  { name: "API Calls", icon: Code },
+  { name: "Code Review", icon: Code },
   { name: "Milestones", icon: MapPin },
-  { name: "Forms", icon: ClipboardList },
-  { name: "Automations", icon: Zap },
-  { name: "Custom Fields", icon: Edit },
-  { name: "Timesheets", icon: Clock },
+  { name: "Feedback Forms", icon: ClipboardList },
+  { name: "Smart Suggestions", icon: Lightbulb },
+  { name: "Custom Design", icon: Edit },
+  { name: "History", icon: Clock },
 
-  { name: "AI Q&A", icon: MessageSquare },
-  { name: "Priorities", icon: ArrowUp },
-  { name: "Time Estimates", icon: Calculator },
-  { name: "Clips", icon: Video },
-  { name: "Everything view", icon: LayoutGrid },
-  { name: "Single Sign-On", icon: Key },
+  { name: "Q&A", icon: MessageSquare },
+  { name: "Top Features", icon: ArrowUp },
+  { name: "Metrics", icon: Calculator },
+  { name: "Screen Recording", icon: Video },
+  { name: "Grid View", icon: LayoutGrid },
+  { name: "Secure Access", icon: Key },
 
-  { name: "Emails", icon: Mail },
-  { name: "Dashboards", icon: BarChart2 },
-  { name: "Time Tracking", icon: Timer },
-  { name: "Kanban Boards", icon: Columns },
+  { name: "Contact", icon: Mail },
+  { name: "Statistics", icon: PieChart },
+  { name: "Response Time", icon: Timer },
+  { name: "Categories", icon: Columns },
   { name: "Integrations", icon: Puzzle },
-  { name: "Guests", icon: UserPlus },
+  { name: "Collaboration", icon: UserPlus },
 
   { name: "Tags", icon: Tag },
-  { name: "24/7 Support", icon: PhoneCall },
+  { name: "Support", icon: Phone },
   { name: "Checklists", icon: ListChecks },
-  { name: "Scheduling", icon: CalendarDays },
-  { name: "Spreadsheets", icon: Table },
-  { name: "Whiteboards", icon: Monitor },
-  { name: "Gantt Charts", icon: AlignLeft },
-  { name: "Roadmaps", icon: Route },
-  { name: "Inbox", icon: Inbox },
-  { name: "Teams", icon: Users },
+  { name: "Schedule", icon: Calendar },
+  { name: "Data Export", icon: Table },
+  { name: "Preview", icon: Monitor },
+  { name: "Typography", icon: AlignLeft },
+  { name: "Navigation", icon: Route },
+  { name: "Messages", icon: Inbox },
+  { name: "Team", icon: Users },
 ];
 
 export default function WallOfFeatures() {
@@ -72,24 +72,7 @@ export default function WallOfFeatures() {
         }}
       />
       
-      <div className="max-w-[1120px] mx-auto px-5 mb-16 text-center flex flex-col items-center relative z-20">
-        <h2
-          className="m-0 text-balance font-[650] text-4xl md:text-5xl leading-[1.25] tracking-tight mb-4"
-          style={{
-            background: "linear-gradient(97deg, rgb(255, 255, 255) 43.17%, rgb(150, 150, 150) 110.86%) text",
-            WebkitTextFillColor: "transparent",
-            fontFamily: '"Plus Jakarta Sans", -apple-system, Roboto, Helvetica, sans-serif',
-          }}
-        >
-          Everything you need <br className="hidden md:block" />
-          to perfect your portfolio
-        </h2>
-        <p 
-          className="text-lg font-light text-[#838383] tracking-tight"
-          style={{ fontFamily: 'Roboto, -apple-system, sans-serif' }}
-        >
-          AI-powered analysis, design feedback, and actionable insights to stand out.
-        </p>
+      <div className="max-w-[1120px] mt-15 mx-auto px-5 mb-16 text-center flex flex-col items-center relative z-20">
       </div>
 
       <div 
@@ -101,45 +84,50 @@ export default function WallOfFeatures() {
       >
         <div className="grid grid-cols-10 grid-rows-6 gap-[1px] bg-white/10 p-[1px]">
           
-          {/* Large tiles defined first so auto-placement avoids them */}
-          
-          <div className="col-start-4 col-span-2 row-start-2 row-span-2 bg-[#0a0a0a] flex flex-col items-center justify-center relative overflow-hidden group cursor-pointer transition-all hover:bg-[#111]">
-            <div className="absolute inset-0 bg-gradient-to-br from-amber-500/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-            <div className="relative flex flex-col items-center gap-3 w-full">
-              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-amber-400 to-orange-500 flex items-center justify-center shadow-lg shadow-amber-500/20 group-hover:scale-110 transition-transform duration-300">
-                <Kanban className="w-7 h-7 text-white" strokeWidth={1.5} />
+          <div className="col-start-4 col-span-2 row-start-2 row-span-2 bg-[#0a0a0a] flex flex-col items-center relative overflow-hidden cursor-pointer">
+            <div className="absolute inset-0 bg-gradient-to-br from-white/5 via-white/3 to-transparent" />
+
+            <div className="relative z-10 flex items-center gap-3 mt-auto mb-8">
+              <div className="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center border border-white/10">
+                <Briefcase className="w-5 h-5 text-white" strokeWidth={1.5} />
               </div>
-              <span className="text-lg font-light text-white tracking-tight" style={{ fontFamily: 'Roboto, -apple-system, sans-serif' }}>Projects</span>
+              <span className="text-2xl font-bold text-white tracking-tight" style={{ fontFamily: 'Roboto, -apple-system, sans-serif' }}>Portfolios</span>
             </div>
           </div>
 
-          <div className="col-start-6 col-span-2 row-start-2 row-span-2 bg-[#0a0a0a] flex flex-col items-center justify-center relative overflow-hidden group cursor-pointer transition-all hover:bg-[#111]">
-            <div className="absolute inset-0 bg-gradient-to-br from-blue-500/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-            <div className="relative flex flex-col items-center gap-3 w-full">
-              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-400 to-blue-600 flex items-center justify-center shadow-lg shadow-blue-500/20 group-hover:scale-110 transition-transform duration-300">
-                <FileText className="w-7 h-7 text-white" strokeWidth={1.5} />
+          <div className="col-start-6 col-span-2 row-start-2 row-span-2 bg-[#0a0a0a] flex flex-col items-center relative overflow-hidden cursor-pointer">
+            {/* Manual gradient background */}
+            <div className="absolute inset-0 bg-gradient-to-br from-white/5 via-white/3 to-transparent" />
+
+            <div className="relative z-10 flex items-center gap-3 mt-auto mb-8">
+              <div className="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center border border-white/10">
+                <FileText className="w-5 h-5 text-white" strokeWidth={1.5} />
               </div>
-              <span className="text-lg font-light text-white tracking-tight" style={{ fontFamily: 'Roboto, -apple-system, sans-serif' }}>Docs</span>
+              <span className="text-2xl font-bold text-white tracking-tight" style={{ fontFamily: 'Roboto, -apple-system, sans-serif' }}>Case Studies</span>
             </div>
           </div>
 
-          <div className="col-start-4 col-span-2 row-start-4 row-span-2 bg-[#0a0a0a] flex flex-col items-center justify-center relative overflow-hidden group cursor-pointer transition-all hover:bg-[#111]">
-            <div className="absolute inset-0 bg-gradient-to-br from-pink-500/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-            <div className="relative flex flex-col items-center gap-3 w-full">
-              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-pink-400 to-rose-500 flex items-center justify-center shadow-lg shadow-pink-500/20 group-hover:scale-110 transition-transform duration-300">
-                <Sparkles className="w-7 h-7 text-white" strokeWidth={1.5} />
+          <div className="col-start-4 col-span-2 row-start-4 row-span-2 bg-[#0a0a0a] flex flex-col items-center relative overflow-hidden cursor-pointer">
+            {/* Manual gradient background */}
+            <div className="absolute inset-0 bg-gradient-to-br from-white/5 via-white/3 to-transparent" />
+
+            <div className="relative z-10 flex items-center gap-3 mt-auto mb-8">
+              <div className="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center border border-white/10">
+                <Sparkles className="w-5 h-5 text-white" strokeWidth={1.5} />
               </div>
-              <span className="text-lg font-light text-white tracking-tight" style={{ fontFamily: 'Roboto, -apple-system, sans-serif' }}>Brain</span>
+              <span className="text-2xl font-bold text-white tracking-tight" style={{ fontFamily: 'Roboto, -apple-system, sans-serif' }}>AI Analysis</span>
             </div>
           </div>
 
-          <div className="col-start-6 col-span-2 row-start-4 row-span-2 bg-[#0a0a0a] flex flex-col items-center justify-center relative overflow-hidden group cursor-pointer transition-all hover:bg-[#111]">
-            <div className="absolute inset-0 bg-gradient-to-br from-violet-500/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-            <div className="relative flex flex-col items-center gap-3 w-full">
-              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-violet-400 to-purple-600 flex items-center justify-center shadow-lg shadow-violet-500/20 group-hover:scale-110 transition-transform duration-300">
-                <Hash className="w-7 h-7 text-white" strokeWidth={1.5} />
+          <div className="col-start-6 col-span-2 row-start-4 row-span-2 bg-[#0a0a0a] flex flex-col items-center relative overflow-hidden cursor-pointer">
+            {/* Manual gradient background */}
+            <div className="absolute inset-0 bg-gradient-to-br from-white/5 via-white/3 to-transparent" />
+
+            <div className="relative z-10 flex items-center gap-3 mt-auto mb-8">
+              <div className="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center border border-white/10">
+                <MessageSquare className="w-5 h-5 text-white" strokeWidth={1.5} />
               </div>
-              <span className="text-lg font-light text-white tracking-tight" style={{ fontFamily: 'Roboto, -apple-system, sans-serif' }}>Chat</span>
+              <span className="text-2xl font-bold text-white tracking-tight" style={{ fontFamily: 'Roboto, -apple-system, sans-serif' }}>Feedback</span>
             </div>
           </div>
 
@@ -149,9 +137,9 @@ export default function WallOfFeatures() {
             return (
               <div 
                 key={index} 
-                className="flex flex-col items-center justify-center bg-[#0a0a0a] hover:bg-white/5 transition-colors cursor-pointer group h-[120px]"
+                className="flex flex-col items-center justify-center bg-[#0a0a0a] hover:bg-white/10 transition-all duration-300 cursor-pointer group h-[120px] hover:scale-[1.02] relative z-10"
               >
-                <Icon className="w-6 h-6 text-[#838383] group-hover:text-white transition-colors mb-3" strokeWidth={1.5} />
+                <Icon className="w-6 h-6 text-[#838383] group-hover:text-white group-hover:scale-110 transition-all duration-300 mb-3" strokeWidth={1.5} />
                 <span className="text-[13px] font-light text-[#838383] group-hover:text-white transition-colors text-center px-2 leading-tight" style={{ fontFamily: 'Roboto, -apple-system, sans-serif' }}>
                   {feature.name}
                 </span>

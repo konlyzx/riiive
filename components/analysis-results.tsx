@@ -1,253 +1,244 @@
 'use client'
 
 import { AnalysisResult } from '@/types/analysis'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from './ui/card'
-import { Badge } from './ui/badge'
-import { Progress } from './ui/progress'
-import { 
-  AlertCircle, 
-  AlertTriangle, 
-  CheckCircle2, 
-  Flame, 
-  Briefcase,
-  Lightbulb,
-  Sparkles,
-  TrendingUp,
-  Share2
+import {
+  AlertCircle, AlertTriangle, CheckCircle2, Flame,
+  Briefcase, Lightbulb, Sparkles, TrendingUp, ArrowLeft,
+  Gauge, Eye, PenTool, FileText, Smartphone, Search
 } from 'lucide-react'
-import { Button } from './ui/button'
 
 interface AnalysisResultsProps {
   result: AnalysisResult
   onReset: () => void
 }
 
-export function AnalysisResults({ result, onReset }: AnalysisResultsProps) {
-  const getScoreColor = (score: number) => {
-    if (score >= 80) return 'text-green-600 dark:text-green-400'
-    if (score >= 60) return 'text-yellow-600 dark:text-yellow-400'
-    return 'text-red-600 dark:text-red-400'
-  }
+const FONT_BODY    = 'Roboto, -apple-system, sans-serif'
+const FONT_HEADING = '"Plus Jakarta Sans", -apple-system, Roboto, Helvetica, sans-serif'
 
-  const getScoreGrade = (score: number) => {
-    if (score >= 90) return 'A+'
-    if (score >= 80) return 'A'
-    if (score >= 70) return 'B'
-    if (score >= 60) return 'C'
-    if (score >= 50) return 'D'
-    return 'F'
-  }
+function scoreColor(score: number) {
+  if (score >= 80) return 'text-emerald-400'
+  if (score >= 60) return 'text-amber-400'
+  return 'text-red-400'
+}
+
+function scoreLabel(score: number) {
+  if (score >= 90) return 'Excellent'
+  if (score >= 80) return 'Good'
+  if (score >= 70) return 'Fair'
+  if (score >= 60) return 'Needs work'
+  return 'Poor'
+}
+
+function ScoreBar({ score }: { score: number }) {
+  const color = score >= 80 ? 'bg-emerald-400' : score >= 60 ? 'bg-amber-400' : 'bg-red-400'
+  return (
+    <div className="h-[2px] w-full bg-white/10 overflow-hidden rounded-full">
+      <div
+        className={`h-full ${color} transition-all duration-700`}
+        style={{ width: `${score}%` }}
+      />
+    </div>
+  )
+}
+
+const SCORE_DIMENSIONS = [
+  { key: 'performance',    label: 'Performance',    Icon: Gauge },
+  { key: 'accessibility',  label: 'Accessibility',  Icon: Eye },
+  { key: 'design',         label: 'Design',         Icon: PenTool },
+  { key: 'content',        label: 'Content',        Icon: FileText },
+  { key: 'responsiveness', label: 'Responsiveness', Icon: Smartphone },
+  { key: 'seo',            label: 'SEO',            Icon: Search },
+] as const
+
+export function AnalysisResults({ result, onReset }: AnalysisResultsProps) {
+  const critical   = result.issues.filter(i => i.category === 'critical')
+  const warnings   = result.issues.filter(i => i.category === 'warning')
+  const suggestions = result.issues.filter(i => i.category === 'suggestion')
 
   return (
-    <div className="w-full max-w-6xl mx-auto space-y-8 animate-in fade-in duration-500">
-      <div className="flex items-center justify-between">
+    <div className="w-full max-w-5xl mx-auto py-10 px-4 flex flex-col gap-8">
+
+      {/* Header */}
+      <div className="flex items-start justify-between gap-4 flex-wrap">
         <div>
-          <h2 className="text-3xl font-bold">Analysis Complete</h2>
-          <p className="text-neutral-500 dark:text-neutral-400 mt-1">
-            {result.url}
+          <button
+            onClick={onReset}
+            className="flex items-center gap-1.5 text-xs text-white/40 hover:text-white/70 transition-colors mb-3"
+            style={{ fontFamily: FONT_BODY }}
+          >
+            <ArrowLeft className="w-3.5 h-3.5" />
+            New analysis
+          </button>
+          <h2
+            className="text-2xl md:text-3xl font-[650] tracking-tight text-white"
+            style={{ fontFamily: FONT_HEADING }}
+          >
+            Analysis Complete
+          </h2>
+          {result.url && (
+            <p className="text-sm text-white/40 mt-1 truncate max-w-sm" style={{ fontFamily: FONT_BODY }}>
+              {result.url}
+            </p>
+          )}
+        </div>
+
+        <div className="text-right">
+          <div className={`text-6xl font-bold tabular-nums ${scoreColor(result.scores.overall)}`}
+            style={{ fontFamily: FONT_HEADING }}>
+            {result.scores.overall}
+          </div>
+          <div className="text-xs text-white/40 uppercase tracking-widest mt-1" style={{ fontFamily: FONT_BODY }}>
+            {scoreLabel(result.scores.overall)}
+          </div>
+        </div>
+      </div>
+
+      {/* Score breakdown */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-px bg-white/10">
+        {SCORE_DIMENSIONS.map(({ key, label, Icon }) => {
+          const score = result.scores[key]
+          return (
+            <div key={key} className="bg-[#0a0a0a] p-5 flex flex-col gap-3">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <Icon className="w-4 h-4 text-white/30" strokeWidth={1.5} />
+                  <span className="text-sm text-white/60" style={{ fontFamily: FONT_BODY }}>{label}</span>
+                </div>
+                <span className={`text-sm font-semibold tabular-nums ${scoreColor(score)}`}
+                  style={{ fontFamily: FONT_BODY }}>
+                  {score}
+                </span>
+              </div>
+              <ScoreBar score={score} />
+            </div>
+          )
+        })}
+      </div>
+
+      {/* Roast + Recruiter */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-px bg-white/10">
+        <div className="bg-[#0a0a0a] p-6 flex flex-col gap-3">
+          <div className="flex items-center gap-2">
+            <Flame className="w-4 h-4 text-white/40" strokeWidth={1.5} />
+            <span className="text-xs uppercase tracking-widest text-white/40" style={{ fontFamily: FONT_BODY }}>The Roast</span>
+          </div>
+          <p className="text-sm text-white/70 leading-relaxed" style={{ fontFamily: FONT_BODY }}>
+            {result.aiFeedback.roast}
           </p>
         </div>
-        <div className="flex gap-2">
-          <Button variant="outline" className="gap-2">
-            <Share2 className="h-4 w-4" />
-            Share
-          </Button>
-          <Button onClick={onReset} variant="outline">
-            Analyze Another
-          </Button>
+        <div className="bg-[#0a0a0a] p-6 flex flex-col gap-3">
+          <div className="flex items-center gap-2">
+            <Briefcase className="w-4 h-4 text-white/40" strokeWidth={1.5} />
+            <span className="text-xs uppercase tracking-widest text-white/40" style={{ fontFamily: FONT_BODY }}>Recruiter View</span>
+          </div>
+          <p className="text-sm text-white/70 leading-relaxed" style={{ fontFamily: FONT_BODY }}>
+            {result.aiFeedback.recruiterFeedback}
+          </p>
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <Card className="md:col-span-1 bg-gradient-to-br from-neutral-50 to-white dark:from-neutral-900 dark:to-neutral-950 border-2">
-          <CardHeader className="text-center pb-2">
-            <CardTitle className="text-sm font-medium text-neutral-500 dark:text-neutral-400">
-              Overall Score
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="text-center">
-            <div className={`text-7xl font-bold ${getScoreColor(result.scores.overall)}`}>
-              {result.scores.overall}
-            </div>
-            <div className="text-3xl font-semibold text-neutral-400 mt-2">
-              {getScoreGrade(result.scores.overall)}
-            </div>
-            <Progress value={result.scores.overall} className="mt-6" />
-          </CardContent>
-        </Card>
-
-        <Card className="md:col-span-2">
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <TrendingUp className="h-5 w-5" />
-              Score Breakdown
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            {[
-              { label: 'Performance', score: result.scores.performance },
-              { label: 'Accessibility', score: result.scores.accessibility },
-              { label: 'Design', score: result.scores.design },
-              { label: 'Content', score: result.scores.content },
-              { label: 'Responsiveness', score: result.scores.responsiveness },
-            ].map((item) => (
-              <div key={item.label} className="space-y-2">
-                <div className="flex justify-between items-center">
-                  <span className="text-sm font-medium">{item.label}</span>
-                  <span className={`text-sm font-bold ${getScoreColor(item.score)}`}>
-                    {item.score}/100
-                  </span>
-                </div>
-                <Progress value={item.score} />
-              </div>
-            ))}
-          </CardContent>
-        </Card>
-      </div>
-
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <Card className="border-red-200 dark:border-red-900/30 bg-red-50/50 dark:bg-red-950/10">
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2 text-red-700 dark:text-red-400">
-              <Flame className="h-5 w-5" />
-              The Roast
-            </CardTitle>
-            <CardDescription>Honest feedback, no sugar coating</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <p className="text-neutral-700 dark:text-neutral-300 leading-relaxed">
-              {result.aiFeedback.roast}
-            </p>
-          </CardContent>
-        </Card>
-
-        <Card className="border-blue-200 dark:border-blue-900/30 bg-blue-50/50 dark:bg-blue-950/10">
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2 text-blue-700 dark:text-blue-400">
-              <Briefcase className="h-5 w-5" />
-              Recruiter Perspective
-            </CardTitle>
-            <CardDescription>What hiring managers think</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <p className="text-neutral-700 dark:text-neutral-300 leading-relaxed">
-              {result.aiFeedback.recruiterFeedback}
-            </p>
-          </CardContent>
-        </Card>
-      </div>
-
+      {/* Issues */}
       {result.issues.length > 0 && (
-        <Card>
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <AlertCircle className="h-5 w-5" />
-              Issues Found
-            </CardTitle>
-            <CardDescription>
-              {result.issues.length} issue{result.issues.length !== 1 ? 's' : ''} detected
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-3">
-            {result.issues.map((issue, idx) => (
-              <div
-                key={idx}
-                className="flex items-start gap-3 p-3 rounded-lg bg-neutral-50 dark:bg-neutral-900"
-              >
-                {issue.category === 'critical' && (
-                  <AlertCircle className="h-5 w-5 text-red-500 flex-shrink-0 mt-0.5" />
-                )}
-                {issue.category === 'warning' && (
-                  <AlertTriangle className="h-5 w-5 text-yellow-500 flex-shrink-0 mt-0.5" />
-                )}
-                {issue.category === 'suggestion' && (
-                  <Lightbulb className="h-5 w-5 text-blue-500 flex-shrink-0 mt-0.5" />
-                )}
-                <div className="flex-1">
-                  <div className="flex items-center gap-2">
-                    <h4 className="font-medium">{issue.title}</h4>
-                    <Badge variant={issue.impact === 'high' ? 'destructive' : 'secondary'}>
+        <div className="flex flex-col gap-3">
+          <h3 className="text-base font-semibold text-white" style={{ fontFamily: FONT_HEADING }}>
+            {result.issues.length} Issue{result.issues.length !== 1 ? 's' : ''} Found
+          </h3>
+          <div className="flex flex-col gap-px bg-white/10">
+            {[...critical, ...warnings, ...suggestions].map((issue, idx) => (
+              <div key={idx} className="bg-[#0a0a0a] p-5 flex gap-4">
+                <div className="mt-0.5 shrink-0">
+                  {issue.category === 'critical' && <AlertCircle className="w-4 h-4 text-red-400" />}
+                  {issue.category === 'warning'  && <AlertTriangle className="w-4 h-4 text-amber-400" />}
+                  {issue.category === 'suggestion' && <Lightbulb className="w-4 h-4 text-white/40" />}
+                </div>
+                <div className="flex flex-col gap-1.5 flex-1">
+                  <div className="flex items-center gap-2 flex-wrap">
+                    <span className="text-sm font-medium text-white" style={{ fontFamily: FONT_BODY }}>
+                      {issue.title}
+                    </span>
+                    <span
+                      className={`text-[10px] uppercase tracking-widest px-2 py-0.5 rounded-full border ${
+                        issue.impact === 'high'
+                          ? 'border-red-500/30 text-red-400'
+                          : issue.impact === 'medium'
+                          ? 'border-amber-500/30 text-amber-400'
+                          : 'border-white/15 text-white/40'
+                      }`}
+                      style={{ fontFamily: FONT_BODY }}
+                    >
                       {issue.impact}
-                    </Badge>
+                    </span>
                   </div>
-                  <p className="text-sm text-neutral-600 dark:text-neutral-400 mt-1">
+                  <p className="text-sm text-white/50 leading-relaxed" style={{ fontFamily: FONT_BODY }}>
                     {issue.description}
                   </p>
+                  {issue.fix && (
+                    <p className="text-xs text-white/35 leading-relaxed border-l border-white/10 pl-3 mt-1"
+                      style={{ fontFamily: FONT_BODY }}>
+                      <span className="text-white/50 font-medium">Fix: </span>{issue.fix}
+                    </p>
+                  )}
                 </div>
               </div>
             ))}
-          </CardContent>
-        </Card>
+          </div>
+        </div>
       )}
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <Card className="border-green-200 dark:border-green-900/30 bg-green-50/50 dark:bg-green-950/10">
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2 text-green-700 dark:text-green-400">
-              <Sparkles className="h-5 w-5" />
+      {/* Positives + Improvements */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-px bg-white/10">
+        <div className="bg-[#0a0a0a] p-6 flex flex-col gap-4">
+          <div className="flex items-center gap-2">
+            <Sparkles className="w-4 h-4 text-white/40" strokeWidth={1.5} />
+            <span className="text-xs uppercase tracking-widest text-white/40" style={{ fontFamily: FONT_BODY }}>
               What&apos;s Working
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <ul className="space-y-2">
-              {result.aiFeedback.positives.map((positive, idx) => (
-                <li key={idx} className="flex items-start gap-2">
-                  <CheckCircle2 className="h-5 w-5 text-green-600 dark:text-green-400 flex-shrink-0 mt-0.5" />
-                  <span className="text-neutral-700 dark:text-neutral-300">{positive}</span>
-                </li>
-              ))}
-            </ul>
-          </CardContent>
-        </Card>
-
-        <Card className="border-purple-200 dark:border-purple-900/30 bg-purple-50/50 dark:bg-purple-950/10">
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2 text-purple-700 dark:text-purple-400">
-              <Lightbulb className="h-5 w-5" />
-              Improvements
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <ul className="space-y-2">
-              {result.aiFeedback.improvements.map((improvement, idx) => (
-                <li key={idx} className="flex items-start gap-2">
-                  <TrendingUp className="h-5 w-5 text-purple-600 dark:text-purple-400 flex-shrink-0 mt-0.5" />
-                  <span className="text-neutral-700 dark:text-neutral-300">{improvement}</span>
-                </li>
-              ))}
-            </ul>
-          </CardContent>
-        </Card>
+            </span>
+          </div>
+          <ul className="flex flex-col gap-2.5">
+            {result.aiFeedback.positives.map((p, i) => (
+              <li key={i} className="flex items-start gap-2.5">
+                <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" strokeWidth={1.5} />
+                <span className="text-sm text-white/60 leading-relaxed" style={{ fontFamily: FONT_BODY }}>{p}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div className="bg-[#0a0a0a] p-6 flex flex-col gap-4">
+          <div className="flex items-center gap-2">
+            <TrendingUp className="w-4 h-4 text-white/40" strokeWidth={1.5} />
+            <span className="text-xs uppercase tracking-widest text-white/40" style={{ fontFamily: FONT_BODY }}>
+              Top Improvements
+            </span>
+          </div>
+          <ul className="flex flex-col gap-2.5">
+            {result.aiFeedback.improvements.map((p, i) => (
+              <li key={i} className="flex items-start gap-2.5">
+                <ArrowLeft className="w-4 h-4 text-amber-400 shrink-0 mt-0.5 rotate-180" strokeWidth={1.5} />
+                <span className="text-sm text-white/60 leading-relaxed" style={{ fontFamily: FONT_BODY }}>{p}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
 
+      {/* Template recommendations */}
       {result.templateRecommendations.length > 0 && (
-        <Card>
-          <CardHeader>
-            <CardTitle>Recommended Templates</CardTitle>
-            <CardDescription>
-              Templates that might work well for your portfolio
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              {result.templateRecommendations.map((template, idx) => (
-                <div
-                  key={idx}
-                  className="p-4 rounded-lg border border-neutral-200 dark:border-neutral-800 hover:border-neutral-300 dark:hover:border-neutral-700 transition-colors"
-                >
-                  <h4 className="font-semibold mb-1">{template.name}</h4>
-                  <p className="text-xs text-neutral-500 dark:text-neutral-400 mb-2">
-                    {template.style}
-                  </p>
-                  <p className="text-sm text-neutral-600 dark:text-neutral-300">
-                    {template.reason}
-                  </p>
-                </div>
-              ))}
-            </div>
-          </CardContent>
-        </Card>
+        <div className="flex flex-col gap-3">
+          <h3 className="text-base font-semibold text-white" style={{ fontFamily: FONT_HEADING }}>
+            Recommended Directions
+          </h3>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-white/10">
+            {result.templateRecommendations.map((t, i) => (
+              <div key={i} className="bg-[#0a0a0a] p-5 flex flex-col gap-2">
+                <span className="text-sm font-medium text-white" style={{ fontFamily: FONT_BODY }}>{t.name}</span>
+                <span className="text-xs text-white/30 uppercase tracking-wider" style={{ fontFamily: FONT_BODY }}>{t.style}</span>
+                <p className="text-sm text-white/50 leading-relaxed" style={{ fontFamily: FONT_BODY }}>{t.reason}</p>
+              </div>
+            ))}
+          </div>
+        </div>
       )}
+
     </div>
   )
 }

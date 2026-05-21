@@ -42,7 +42,7 @@ export function NavigationDrawer({ isOpen, onClose }: NavigationDrawerProps) {
       {/* Drawer panel - fullscreen */}
       <div 
         className={`fixed inset-0 bg-black z-[101] transition-all duration-500 ${
-          isOpen ? 'translate-x-0 opacity-100' : 'translate-x-full opacity-0'
+          isOpen ? 'translate-x-0 opacity-100' : 'translate-x-full opacity-0 pointer-events-none'
         }`}
         style={{ 
           transitionTimingFunction: isOpen ? 'cubic-bezier(0.16, 1, 0.3, 1)' : 'cubic-bezier(0.7, 0, 0.84, 0)'

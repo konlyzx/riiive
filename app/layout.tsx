@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Anton, Roboto } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
+import { LenisProvider } from "@/components/lenis-provider";
+import { AuthSessionProvider } from "@/components/session-provider";
 
 const anton = Anton({
   weight: "400",
@@ -28,9 +30,13 @@ export default function RootLayout({
   return (
     <html lang="en" className={anton.variable} suppressHydrationWarning>
       <body className="min-h-full antialiased font-anton">
-        <ThemeProvider>
-          {children}
-        </ThemeProvider>
+        <AuthSessionProvider>
+          <ThemeProvider>
+            <LenisProvider>
+              {children}
+            </LenisProvider>
+          </ThemeProvider>
+        </AuthSessionProvider>
       </body>
     </html>
   );
