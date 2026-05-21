@@ -91,7 +91,6 @@ function buildTree(paths: string[]): TreeNode[] {
   return root.children
 }
 
-
 // ─── VS Code-style tree node ──────────────────────────────────────────────────
 
 function TreeNode({
